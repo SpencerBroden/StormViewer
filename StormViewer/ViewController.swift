@@ -2,14 +2,14 @@
 //  ViewController.swift
 //  StormViewer
 //
-//  Created by Spencer Broden on 9/14/20.
+//  Created by Spencer Broden on 6/10/20.
 //  Copyright © 2020 Spencer Broden. All rights reserved.
 //
 
 import UIKit
 
 class ViewController: UITableViewController {
-    
+
     var pictures = [String]()
     
     override func viewDidLoad() {
@@ -36,8 +36,14 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Picture", for: indexPath)
         cell.textLabel?.text = pictures[indexPath.row]
-        return cell
+        cell.imageView?.image = UIImage(named: pictures[indexPath.row])
+        return cell 
     }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 60
+    }
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "Detail") as? DetailViewController {
             vc.selectedImage = pictures[indexPath.row]
@@ -46,5 +52,6 @@ class ViewController: UITableViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
+
 }
 
